@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <meta charset="UTF-8"/>
+    <title>Accès refusé — LIAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F7F3EE;
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .error-wrap {
+            text-align: center;
+            max-width: 440px;
+            padding: 24px;
+        }
+        .error-code {
+            font-family: 'Playfair Display', serif;
+            font-size: 120px;
+            font-weight: 700;
+            color: #E8E2D8;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .error-icon { font-size: 40px; margin-bottom: 16px; }
+        .error-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px; font-weight: 700;
+            color: #1C1C1E;
+            margin-bottom: 10px;
+        }
+        .error-desc {
+            font-size: 14px; color: #8E8E9A;
+            line-height: 1.7; margin-bottom: 30px;
+        }
+        .btn-row { display: flex; gap: 10px; justify-content: center; }
+        .btn {
+            padding: 10px 22px; border-radius: 9px;
+            font-size: 13.5px; font-weight: 600;
+            text-decoration: none; cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            border: none; transition: all .15s;
+        }
+        .btn-dark { background: #12151E; color: #fff; }
+        .btn-dark:hover { background: #1C2030; }
+        .btn-outline { background: #fff; color: #1C1C1E; border: 1.5px solid #E8E2D8; }
+        .btn-outline:hover { border-color: #C9A84C; }
+    </style>
+</h:head>
+<h:body>
+    <div class="error-wrap">
+        <div class="error-code">403</div>
+        <div class="error-icon">🚫</div>
+        <h1 class="error-title">Accès refusé</h1>
+        <p class="error-desc">
+            Vous n'êtes pas autorisé à accéder à cette page.<br/>
+            Veuillez vous connecter avec les droits nécessaires.
+        </p>
+        <div class="btn-row">
+            <h:link styleClass="btn btn-dark" outcome="/login">Se connecter →</h:link>
+            <h:link styleClass="btn btn-outline" outcome="/index">Accueil</h:link>
+        </div>
+    </div>
+</h:body>
+</html>

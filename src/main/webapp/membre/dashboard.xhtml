@@ -1,0 +1,31 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="content">
+        <h2>Vue d'ensemble</h2>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+            <div style="background:white;padding:15px;border-radius:8px">
+                Membres<br/>
+                <span class="badge">#{dashboardBean.totalMembres}</span>
+            </div>
+
+            <div style="background:white;padding:15px;border-radius:8px">
+                Publications<br/>
+                <span class="badge">#{dashboardBean.totalPublications}</span>
+            </div>
+
+            <div style="background:white;padding:15px;border-radius:8px">
+                Événements<br/>
+                <span class="badge">#{dashboardBean.totalEvenements}</span>
+            </div>
+
+            <div style="background:white;padding:15px;border-radius:8px">
+                Conventions<br/>
+                <span class="badge">#{dashboardBean.totalConventions}</span>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

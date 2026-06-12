@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LIAS — Laboratoire d'Informatique et d'Aide à la Décision</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --dark: #12151E; --gold: #C9A84C; --cream: #F7F3EE;
+            --cream-2: #EDE8E0; --white: #fff; --text: #1C1C1E;
+            --text-2: #4A4A52; --text-3: #8E8E9A; --border: #E8E2D8;
+        }
+        body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+        /* NAV */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 60px;
+            background: rgba(255,255,255,.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; padding: 0 40px;
+            gap: 32px;
+        }
+        .nav-brand {
+            display: flex; align-items: center; gap: 10px; margin-right: auto;
+            text-decoration: none;
+        }
+        .nav-logo-box {
+            width: 34px; height: 34px; background: var(--dark);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        }
+        .nav-logo-l {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px; font-weight: 700; color: var(--gold);
+        }
+        .nav-brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px; font-weight: 700; color: var(--dark);
+        }
+        .nav-link { color: var(--text-2); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .15s; }
+        .nav-link:hover { color: var(--dark); }
+        .btn-nav {
+            background: var(--dark); color: #fff;
+            border-radius: 8px; padding: 8px 18px;
+            font-size: 13.5px; font-weight: 600; text-decoration: none;
+            transition: background .15s;
+        }
+        .btn-nav:hover { background: #1C2030; }
+
+        /* HERO */
+        .hero {
+            padding: 120px 80px 80px;
+            background: var(--cream);
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 64px; align-items: center;
+            min-height: 100vh;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            border: 1px solid rgba(201,168,76,.15);
+            border-radius: 50%;
+            right: -100px; top: -100px;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            border: 1px solid rgba(201,168,76,.1);
+            border-radius: 50%;
+            right: 50px; top: 50px;
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .14em; color: var(--gold);
+            margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+        }
+        .hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 54px; font-weight: 700; line-height: 1.1;
+            color: var(--dark); margin-bottom: 20px;
+        }
+        .hero-title em { font-style: italic; color: var(--gold); }
+        .hero-desc { font-size: 16px; color: var(--text-2); line-height: 1.75; margin-bottom: 36px; }
+        .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-hero-dark {
+            background: var(--dark); color: #fff;
+            border-radius: 9px; padding: 13px 26px;
+            font-size: 14.5px; font-weight: 600; text-decoration: none;
+            transition: background .15s; display: inline-block;
+        }
+        .btn-hero-dark:hover { background: #1C2030; }
+        .btn-hero-outline {
+            background: transparent; color: var(--dark);
+            border: 1.5px solid var(--border-2, #D8D0C4);
+            border-radius: 9px; padding: 13px 26px;
+            font-size: 14.5px; font-weight: 600; text-decoration: none;
+            transition: border-color .15s; display: inline-block;
+        }
+        .btn-hero-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Hero stats panel */
+        .hero-right {
+            background: var(--dark);
+            border-radius: 18px; padding: 36px;
+            position: relative; z-index: 1;
+        }
+        .hero-stat-label {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .14em; color: rgba(255,255,255,.3);
+            margin-bottom: 6px;
+        }
+        .hero-stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px; font-weight: 700; color: var(--gold);
+            line-height: 1;
+        }
+        .hero-stat-sub { font-size: 12.5px; color: rgba(255,255,255,.45); margin-top: 4px; }
+        .hero-stats-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+        .hero-divider { height: 1px; background: rgba(255,255,255,.07); margin: 28px 0; }
+
+        /* FEATURES */
+        .features-section {
+            padding: 80px;
+            background: var(--white);
+        }
+        .section-header { text-align: center; margin-bottom: 52px; }
+        .s-eyebrow {
+            font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .14em; color: var(--gold); margin-bottom: 12px;
+        }
+        .s-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; font-weight: 700; color: var(--dark);
+        }
+        .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .feat-card {
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 28px 24px;
+            transition: box-shadow .2s, transform .15s;
+        }
+        .feat-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.07); transform: translateY(-3px); }
+        .feat-icon { font-size: 24px; margin-bottom: 14px; }
+        .feat-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+        .feat-desc  { font-size: 13.5px; color: var(--text-3); line-height: 1.65; }
+
+        /* CTA */
+        .cta-section {
+            background: var(--dark);
+            padding: 80px;
+            text-align: center;
+        }
+        .cta-eyebrow {
+            font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .14em; color: var(--gold); margin-bottom: 14px;
+        }
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; font-weight: 700; color: #fff;
+            margin-bottom: 14px;
+        }
+        .cta-desc { font-size: 15px; color: rgba(255,255,255,.45); margin-bottom: 32px; }
+        .btn-cta-gold {
+            background: var(--gold); color: var(--dark);
+            border-radius: 9px; padding: 13px 28px;
+            font-size: 14.5px; font-weight: 700; text-decoration: none;
+            display: inline-block; transition: background .15s;
+        }
+        .btn-cta-gold:hover { background: #B8923E; }
+
+        /* FOOTER */
+        .footer {
+            background: #0D0F17; color: rgba(255,255,255,.3);
+            text-align: center; padding: 22px;
+            font-size: 12.5px;
+        }
+        .footer a { color: rgba(255,255,255,.45); }
+    </style>
+</h:head>
+<h:body>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <h:link styleClass="nav-brand" outcome="/index">
+            <div class="nav-logo-box"><span class="nav-logo-l">L</span></div>
+            <span class="nav-brand-name">LIAS</span>
+        </h:link>
+        <h:link styleClass="nav-link" outcome="/public/publications" value="Publications"/>
+        <h:link styleClass="nav-link" outcome="/public/membres" value="Membres"/>
+        <h:link styleClass="nav-link" outcome="/public/evenements" value="Événements"/>
+        <h:link styleClass="nav-link" outcome="/public/demande-adhesion" value="Rejoindre"/>
+        <h:link styleClass="btn-nav" outcome="/login" value="Connexion →"/>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div style="position:relative;z-index:1">
+            <div class="hero-eyebrow">Université Hassan II de Casablanca</div>
+            <h1 class="hero-title">
+                La recherche,<br/>
+                <em>au cœur du numérique</em>
+            </h1>
+            <p class="hero-desc">
+                Le laboratoire LIAS regroupe des chercheurs en informatique, intelligence artificielle
+                et aide à la décision. Rejoignez une communauté scientifique d'excellence.
+            </p>
+            <div class="hero-cta">
+                <h:link styleClass="btn-hero-dark" outcome="/login" value="Accès membres →"/>
+                <h:link styleClass="btn-hero-outline" outcome="/public/demande-adhesion" value="Candidater au laboratoire"/>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-stats-grid">
+                <div>
+                    <div class="hero-stat-label">Membres chercheurs</div>
+                    <div class="hero-stat-num">60+</div>
+                    <div class="hero-stat-sub">Permanents &amp; associés</div>
+                </div>
+                <div>
+                    <div class="hero-stat-label">Publications</div>
+                    <div class="hero-stat-num">200+</div>
+                    <div class="hero-stat-sub">Articles &amp; conférences</div>
+                </div>
+                <div>
+                    <div class="hero-stat-label">Équipes</div>
+                    <div class="hero-stat-num">8</div>
+                    <div class="hero-stat-sub">De recherche</div>
+                </div>
+                <div>
+                    <div class="hero-stat-label">Années</div>
+                    <div class="hero-stat-num">30+</div>
+                    <div class="hero-stat-sub">D'excellence</div>
+                </div>
+            </div>
+            <div class="hero-divider"/>
+            <div style="font-size:12.5px; color:rgba(255,255,255,.35); line-height:1.6">
+                Faculté des Sciences Ben M'Sik ·<br/>
+                Laboratoire d'Informatique et d'Aide à la Décision
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features-section">
+        <div class="section-header">
+            <div class="s-eyebrow">Fonctionnalités</div>
+            <h2 class="s-title">Un système pensé pour la recherche</h2>
+        </div>
+        <div class="feat-grid">
+            <div class="feat-card">
+                <div class="feat-icon">📄</div>
+                <div class="feat-title">Publications</div>
+                <div class="feat-desc">Catalogue centralisé des articles, thèses, conférences et ouvrages du laboratoire.</div>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon">👥</div>
+                <div class="feat-title">Membres</div>
+                <div class="feat-desc">Gestion des permanents, associés et doctorants. Suivi des adhésions et équipes.</div>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon">📅</div>
+                <div class="feat-title">Événements</div>
+                <div class="feat-desc">Séminaires, journées d'étude, conférences. Calendrier interactif du laboratoire.</div>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon">🗂</div>
+                <div class="feat-title">Documents &amp; PV</div>
+                <div class="feat-desc">Bibliothèque de documents internes, procès-verbaux et rapports centralisés.</div>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon">🤝</div>
+                <div class="feat-title">Conventions</div>
+                <div class="feat-desc">Suivi des partenariats académiques et industriels actifs et archivés.</div>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon">📊</div>
+                <div class="feat-title">Rapport annuel</div>
+                <div class="feat-desc">Génération automatique du bilan d'activité annuel du laboratoire.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-eyebrow">Rejoindre le LIAS</div>
+        <h2 class="cta-title">Vous êtes chercheur ou doctorant ?</h2>
+        <p class="cta-desc">Soumettez votre candidature en quelques minutes.</p>
+        <h:link styleClass="btn-cta-gold" outcome="/public/demande-adhesion" value="Soumettre ma candidature →"/>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        © 2026 Laboratoire LIAS · Faculté des Sciences Ben M'Sik ·
+        Université Hassan II de Casablanca ·
+        <h:link outcome="/login" value="Connexion"/>
+    </footer>
+
+</h:body>
+</html>

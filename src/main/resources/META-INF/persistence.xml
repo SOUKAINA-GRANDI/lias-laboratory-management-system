@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    
+    <persistence-unit name="lias-pu" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>ma.lias.app.entity.Equipe</class>
+        <class>ma.lias.app.entity.Mandat</class>
+        <class>ma.lias.app.entity.ChefEquipeMandat</class>
+        <class>ma.lias.app.entity.Membre</class>
+        <class>ma.lias.app.entity.AffiliationHistorique</class>
+        <class>ma.lias.app.entity.RoleHistorique</class>
+        <class>ma.lias.app.entity.Utilisateur</class>
+        <class>ma.lias.app.entity.DemandeAdhesion</class>
+        <class>ma.lias.app.entity.Publication</class>
+        <class>ma.lias.app.entity.Evenement</class>
+        <class>ma.lias.app.entity.Document</class>
+        <class>ma.lias.app.entity.ProcesVerbal</class>
+        <class>ma.lias.app.entity.Materiel</class>
+        <class>ma.lias.app.entity.AttributionMateriel</class>
+        <class>ma.lias.app.entity.Convention</class>
+        <properties>
+            <!-- Base de données -->
+            <property name="javax.persistence.jdbc.url" 
+                      value="jdbc:mysql://localhost:3306/lias_db?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <property name="javax.persistence.jdbc.driver" 
+                      value="com.mysql.cj.jdbc.Driver"/>
+            
+            <!-- Hibernate -->
+            <property name="hibernate.dialect" 
+                      value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

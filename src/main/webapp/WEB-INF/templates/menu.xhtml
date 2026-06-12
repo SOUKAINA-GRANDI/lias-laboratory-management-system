@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:link value="Dashboard" outcome="/membre/dashboard.xhtml"/>
+
+    <h:panelGroup rendered="#{loginBean.estMembre}">
+        <h:link value="Mon Profil" outcome="/membre/profil.xhtml"/>
+        <h:link value="Publications" outcome="/membre/publications/liste.xhtml"/>
+        <h:link value="Événements" outcome="/membre/evenements/liste.xhtml"/>
+        <h:link value="Documents" outcome="/membre/documents/liste.xhtml"/>
+        <h:link value="Matériel" outcome="/membre/materiels/liste.xhtml"/>
+        <h:link value="Conventions" outcome="/membre/conventions/liste.xhtml"/>
+        <h:link value="Recherche" outcome="/membre/recherche.xhtml"/>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{loginBean.estDirecteur}">
+        <h:link value="Mandats" outcome="/directeur/mandats/liste.xhtml"/>
+        <h:link value="Demandes" outcome="/directeur/demandes/liste.xhtml"/>
+        <h:link value="Rapport Annuel" outcome="/directeur/rapport/annuel.xhtml"/>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{loginBean.estAdmin}">
+        <h:link value="Utilisateurs" outcome="/admin/utilisateurs/liste.xhtml"/>
+        <h:link value="Paramètres" outcome="/admin/parametres.xhtml"/>
+    </h:panelGroup>
+
+</ui:composition>

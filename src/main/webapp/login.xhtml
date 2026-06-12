@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Connexion — LIAS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+          rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --sidebar-bg: #12151E;
+            --gold:       #C9A84C;
+            --cream:      #F7F3EE;
+            --white:      #FFFFFF;
+            --text:       #1C1C1E;
+            --text-2:     #4A4A52;
+            --text-3:     #8E8E9A;
+            --border:     #E8E2D8;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 480px 1fr;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── PANNEAU GAUCHE SOMBRE ─── */
+        .left-panel {
+            background: var(--sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 44px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Pattern décoratif hexagonal */
+        .left-panel::before {
+            content: 'L';
+            position: absolute;
+            right: -60px; bottom: -40px;
+            font-family: 'Playfair Display', serif;
+            font-size: 340px;
+            font-weight: 700;
+            color: rgba(201,168,76,.04);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        /* Cercles décoratifs */
+        .deco-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,.12);
+        }
+        .ring-1 { width: 300px; height: 300px; top: -80px; right: -80px; }
+        .ring-2 { width: 180px; height: 180px; top: -20px; right: -20px; }
+
+        .left-brand {
+            display: flex; align-items: center; gap: 12px;
+            position: relative; z-index: 1;
+        }
+        .brand-box {
+            width: 42px; height: 42px;
+            background: var(--gold);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px; font-weight: 700;
+            color: var(--sidebar-bg);
+        }
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px; font-weight: 700;
+            color: #fff;
+        }
+        .brand-sub {
+            font-size: 10px; font-weight: 400;
+            color: rgba(255,255,255,.35);
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            margin-top: 2px;
+        }
+
+        .left-content { position: relative; z-index: 1; }
+
+        .left-label {
+            font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: .14em;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+        .left-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+        .left-headline em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        .left-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,.5);
+            line-height: 1.75;
+            margin-bottom: 36px;
+        }
+
+        .features { display: flex; flex-direction: column; gap: 16px; }
+        .feature-item {
+            display: flex; align-items: flex-start; gap: 12px;
+        }
+        .feature-bullet {
+            width: 28px; height: 28px;
+            background: rgba(201,168,76,.15);
+            border: 1px solid rgba(201,168,76,.25);
+            border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .feature-title { font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,.8); }
+        .feature-desc  { font-size: 12px; color: rgba(255,255,255,.38); margin-top: 2px; }
+
+        .left-footer {
+            font-size: 11.5px;
+            color: rgba(255,255,255,.2);
+            position: relative; z-index: 1;
+            border-top: 1px solid rgba(255,255,255,.06);
+            padding-top: 20px;
+        }
+
+        /* ─── PANNEAU DROIT CLAIR ─── */
+        .right-panel {
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 40px;
+        }
+
+        .login-form-wrap { width: 100%; max-width: 400px; }
+
+        .form-heading { margin-bottom: 32px; }
+        .form-heading h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        .form-heading p { font-size: 14px; color: var(--text-3); }
+
+        .form-group { margin-bottom: 18px; }
+        .form-label {
+            display: block;
+            font-size: 12.5px; font-weight: 600;
+            color: var(--text-2);
+            margin-bottom: 7px;
+        }
+
+        /* Input overrides PrimeFaces */
+        .login-form-wrap .ui-inputtext,
+        .login-form-wrap .ui-password .ui-inputtext {
+            width: 100% !important;
+            border: 1.5px solid var(--border) !important;
+            border-radius: 9px !important;
+            padding: 11px 14px !important;
+            font-size: 14px !important;
+            font-family: 'Inter', sans-serif !important;
+            color: var(--text) !important;
+            background: var(--white) !important;
+            transition: border-color .15s, box-shadow .15s !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,.04) !important;
+        }
+        .login-form-wrap .ui-inputtext:focus,
+        .login-form-wrap .ui-inputtext.ui-state-focus {
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 0 3px rgba(201,168,76,.15), 0 1px 3px rgba(0,0,0,.04) !important;
+            outline: none !important;
+        }
+        .login-form-wrap .ui-password { display: block !important; }
+
+        /* Bouton submit */
+        .btn-submit {
+            display: block; width: 100%;
+            background: var(--sidebar-bg);
+            color: #fff;
+            border: none; border-radius: 9px;
+            padding: 13px;
+            font-size: 14.5px; font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: background .15s, transform .1s;
+            margin-top: 4px;
+            letter-spacing: .01em;
+        }
+        .btn-submit:hover { background: #1C2030; }
+        .btn-submit:active { transform: scale(.99); }
+
+        /* Séparateur */
+        .sep {
+            display: flex; align-items: center; gap: 12px;
+            margin: 24px 0;
+        }
+        .sep-line { flex: 1; height: 1px; background: var(--border); }
+        .sep-text  { font-size: 11.5px; color: var(--text-3); font-weight: 500; }
+
+        /* Liens publics */
+        .public-cards { display: flex; flex-direction: column; gap: 9px; }
+        .public-card {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 14px;
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            text-decoration: none;
+            color: var(--text-2);
+            font-size: 13px; font-weight: 500;
+            transition: border-color .15s, color .15s, background .15s;
+            box-shadow: 0 1px 3px rgba(0,0,0,.04);
+        }
+        .public-card:hover {
+            border-color: var(--gold);
+            color: var(--text);
+            background: rgba(201,168,76,.03);
+        }
+        .public-card-icon {
+            width: 30px; height: 30px;
+            background: var(--cream);
+            border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        }
+        .public-card-arr {
+            margin-left: auto;
+            color: var(--text-3);
+            font-size: 16px;
+        }
+
+        /* Messages erreur */
+        .ui-messages-error {
+            background: rgba(192,57,43,.06);
+            border: 1px solid rgba(192,57,43,.2);
+            border-radius: 9px;
+            padding: 11px 14px;
+            color: #C0392B;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+        .ui-messages-error .ui-messages-error-icon { display: none; }
+
+        @media (max-width: 820px) {
+            body { grid-template-columns: 1fr; }
+            .left-panel { display: none; }
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <!-- ─── GAUCHE ─── -->
+    <div class="left-panel">
+        <div class="deco-ring ring-1"/>
+        <div class="deco-ring ring-2"/>
+
+        <div class="left-brand">
+            <div class="brand-box">L</div>
+            <div>
+                <div class="brand-name">LIAS</div>
+                <div class="brand-sub">Système de gestion</div>
+            </div>
+        </div>
+
+        <div class="left-content">
+            <div class="left-label">Laboratoire de recherche</div>
+            <h1 class="left-headline">
+                La recherche,<br/>
+                <em>organisée avec élégance</em>
+            </h1>
+            <p class="left-desc">
+                Plateforme centralisée pour gérer les membres, publications,
+                événements et ressources du laboratoire LIAS — Université Hassan II de Casablanca.
+            </p>
+
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-bullet">📄</div>
+                    <div>
+                        <div class="feature-title">Publications &amp; travaux</div>
+                        <div class="feature-desc">Articles, thèses, conférences centralisés</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-bullet">👥</div>
+                    <div>
+                        <div class="feature-title">Gestion des membres</div>
+                        <div class="feature-desc">Permanents, associés, doctorants</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-bullet">📊</div>
+                    <div>
+                        <div class="feature-title">Rapport annuel automatisé</div>
+                        <div class="feature-desc">Statistiques et synthèse générées</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="left-footer">
+            © 2026 Faculté des Sciences Ben M'Sik · Université Hassan II de Casablanca
+        </div>
+    </div>
+
+    <!-- ─── DROITE ─── -->
+    <div class="right-panel">
+        <div class="login-form-wrap">
+
+            <div class="form-heading">
+                <h1>Bienvenue</h1>
+                <p>Connectez-vous à votre espace LIAS</p>
+            </div>
+
+            <h:form id="loginForm">
+                <p:messages autoUpdate="true" showDetail="true"/>
+
+                <div class="form-group">
+                    <label class="form-label" for="username">Identifiant</label>
+                    <p:inputText id="username"
+                                 value="#{loginBean.username}"
+                                 placeholder="ex : m.alami"
+                                 required="true"
+                                 requiredMessage="L'identifiant est requis"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Mot de passe</label>
+                    <p:password id="password"
+                                value="#{loginBean.password}"
+                                placeholder="••••••••"
+                                feedback="false"
+                                required="true"
+                                requiredMessage="Le mot de passe est requis"/>
+                </div>
+
+                <button type="submit" class="btn-submit"
+                        onclick="document.querySelector('form').submit(); return false;">
+                    Se connecter →
+                </button>
+                <!-- Bouton JSF réel caché pour la soumission -->
+                <p:commandButton value="Login"
+                                 action="#{loginBean.login}"
+                                 ajax="false"
+                                 style="display:none"
+                                 id="realLoginBtn"/>
+            </h:form>
+
+            <div class="sep">
+                <div class="sep-line"/>
+                <span class="sep-text">Accès visiteur</span>
+                <div class="sep-line"/>
+            </div>
+
+            <div class="public-cards">
+                <h:link styleClass="public-card" outcome="/public/presentation">
+                    <div class="public-card-icon">🌐</div>
+                    <span>Présentation du laboratoire</span>
+                    <span class="public-card-arr">›</span>
+                </h:link>
+                <h:link styleClass="public-card" outcome="/public/demande-adhesion">
+                    <div class="public-card-icon">✉️</div>
+                    <span>Soumettre une candidature</span>
+                    <span class="public-card-arr">›</span>
+                </h:link>
+            </div>
+
+        </div>
+    </div>
+
+</h:body>
+</html>
